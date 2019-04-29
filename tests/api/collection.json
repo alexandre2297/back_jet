@@ -72,7 +72,7 @@
 					"script": {
 						"id": "29cc937c-0294-49cd-ba3e-31f7b5f41eac",
 						"exec": [
-							"pm.globals.set('url', 'http://localhost:3000')"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -93,6 +93,7 @@
 							"pm.test(\"has one JetPack\", function () {",
 							"     var jsonData = pm.response.json();",
 							"     pm.expect(jsonData.length).to.eql(1);",
+							"     pm.globals.set(\"id_jetpack\", jsonData[0].id);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -123,6 +124,70 @@
 					],
 					"path": [
 						"jetpacks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Jet pack",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "29cc937c-0294-49cd-ba3e-31f7b5f41eac",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cffee8b-566b-4c46-aa99-e2b76d4487bc",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"is an object json\", function () {",
+							"    pm.response.to.be.json",
+							"});",
+							"",
+							"pm.test(\"Json bdy has information\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).not.equal(null);",
+							"    pm.expect(jsonData.name).not.equal(null);",
+							"    pm.expect(jsonData.image).not.equal(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : \"{{id_jetpack}}\",\n\t\"name\":\"Jet Pack à fusion X98371\",\n\t\"image\": \"Base 64 ...\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/jetpacks/edit",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"jetpacks",
+						"edit"
 					]
 				}
 			},
