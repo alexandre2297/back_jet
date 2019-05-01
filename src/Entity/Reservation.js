@@ -33,8 +33,8 @@ module.exports = class {
     toJson() {
         return {
             id : this.id,
-            name: this.start,
-            image: this.end
+            start: this.start,
+            end: this.end
         }
     }
 };
