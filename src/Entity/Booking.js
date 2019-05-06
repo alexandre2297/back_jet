@@ -21,7 +21,7 @@ module.exports = class {
 
   set startDate(value) {
     if (value) {
-      this._startDate = new Date(value).toUTCString();
+      this._startDate = new Date(value).toISOString().substring(0, 10);
     } else {
       this._startDate = null;
     }
@@ -33,7 +33,7 @@ module.exports = class {
 
   set endDate(value) {
     if (value) {
-      this._endDate = new Date(value).toUTCString();
+      this._endDate = new Date(value).toISOString().substring(0, 10);
     } else {
       this._endDate = null;
     }

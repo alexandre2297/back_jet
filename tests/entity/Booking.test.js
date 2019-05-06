@@ -7,8 +7,8 @@ describe("Booking toJson", function() {
     book.endDate = "2019-02-01";
     expect(book.toJson()).toMatchObject({
       jetpack_id: "1938232",
-      start_date: "Sat, 14 Apr 2018 00:00:00 GMT",
-      end_date: "Fri, 01 Feb 2019 00:00:00 GMT"
+      start_date: "2018-04-14",
+      end_date: "2019-02-01"
     });
   });
 });
