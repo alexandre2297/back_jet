@@ -13,6 +13,7 @@ app
   .post(require("./controller/Jetpack/CreateJetpackController"));
 app
   .route("/bookings/:id?")
+  .get(require("./controller/Booking/getBookingController"))
   .post(require("./controller/Booking/BookingController"));
 
 app.listen(3000, function() {
