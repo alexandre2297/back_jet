@@ -17,7 +17,7 @@ describe("book a jetpack", function() {
     dbMock.get.mockReturnValue(dbMock);
     dbMock.push.mockReturnValue(dbMock);
     dbMock.write.mockReturnValue(dbMock);
-    dbMock.filter.mockReturnValue(dbMock);
+    dbMock.filter.mockReturnValue(null);
     
     const repository = new Repository(dbMock);
     repository.book(book);

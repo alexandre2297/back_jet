@@ -45,7 +45,7 @@ module.exports = class {
       || moment(booking.endDate).isBefore(moment(b.start_date)))) 
 
 
-    if (bookExists && bookExists.value()) {
+    if (bookExists) {
       throw "A booking for this jetpack already exists";
     }
 
