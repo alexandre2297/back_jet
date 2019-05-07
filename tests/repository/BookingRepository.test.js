@@ -2,13 +2,12 @@ const Repository = require("../../src/Repository/BookingRepository");
 const Booking = require("../../src/Entity/Booking");
 
 describe("book a jetpack", function() {
-  test("Test create", () => {
+  test("Test booking", () => {
     let dbMock = {
       get: jest.fn(),
       push: jest.fn(),
       write: jest.fn(),
-      find: jest.fn(),
-      value: jest.fn()
+      filter: jest.fn()
     };
     const book = new Booking();
     book.jetpackId = "1";
@@ -18,7 +17,8 @@ describe("book a jetpack", function() {
     dbMock.get.mockReturnValue(dbMock);
     dbMock.push.mockReturnValue(dbMock);
     dbMock.write.mockReturnValue(dbMock);
-
+    dbMock.filter.mockReturnValue(dbMock);
+    
     const repository = new Repository(dbMock);
     repository.book(book);
     expect(dbMock.write.mock.calls.length).toBe(1);
@@ -37,5 +37,27 @@ describe("book a jetpack", function() {
     expect(() => repository.book(book)).toThrow(
       "Booking object is missing information"
     );
+  });
+
+  test("Retrieve availables jetpacks", () => {
+    let dbMock = {
+      get: jest.fn(),
+      filter: jest.fn(),
+      find: jest.fn(),
+      value: jest.fn()
+    };
+
+    dbMock.get.mockReturnValue(dbMock);
+    dbMock.find.mockReturnValue(dbMock);
+    dbMock.value.mockReturnValue(null);
+    dbMock.filter.mockReturnValue(null);
+
+    const repository = new Repository(dbMock);
+    expect(dbMock.filter.mock.calls.length).toBe(0);
+    expect(dbMock.find.mock.calls.length).toBe(0);
+
+    expect(repository.retrieveAvailablesJetpacks(null, null)).toEqual(null);
+
+
   });
 });
